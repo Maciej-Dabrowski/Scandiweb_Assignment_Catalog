@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Scandiweb\Test\Setup\Patch\Data;
 
+use Exception;
 use Magento\Catalog\Api\CategoryLinkManagementInterface;
 use Magento\Catalog\Api\Data\ProductInterfaceFactory;
 use Magento\Catalog\Api\ProductRepositoryInterface;
@@ -131,8 +132,9 @@ class CreateTestProduct implements DataPatchInterface
 
     /**
      * Add new product
+     * @import Exception
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function apply(): void
     {
@@ -140,11 +142,15 @@ class CreateTestProduct implements DataPatchInterface
     }
 
     /**
+     * @use Magento\Framework\Exception\CouldNotSaveException
+     * @use Magento\Framework\Exception\InputException
+     * @use Magento\Framework\Exception\LocalizedException
+     * @use Magento\Framework\Exception\StateException
      * @return void
-     * @throws \Magento\Framework\Exception\CouldNotSaveException
-     * @throws \Magento\Framework\Exception\InputException
-     * @throws \Magento\Framework\Exception\LocalizedException
-     * @throws \Magento\Framework\Exception\StateException
+     * @throws Magento\Framework\Exception\CouldNotSaveException
+     * @throws Magento\Framework\Exception\InputException
+     * @throws Magento\Framework\Exception\LocalizedException
+     * @throws Magento\Framework\Exception\StateException
      */
     public function execute(): void
     {
@@ -197,4 +203,3 @@ class CreateTestProduct implements DataPatchInterface
         $this->categoryLink->assignProductToCategories($product->getSku(), [2]);
     }
 }
-
